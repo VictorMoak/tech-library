@@ -1,5 +1,5 @@
-
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import { Author } from './author.entity';
 
 @Entity()
 export class Book {
@@ -13,8 +13,11 @@ export class Book {
   year: number;
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date
+  updatedAt: Date;
+
+  @ManyToOne(() => Author, (author) => author.books)
+  author: Author;
 }
