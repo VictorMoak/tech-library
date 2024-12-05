@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
-import { Author } from './author.entity';
+import { Author } from '../authors/author.entity';
 
 @Entity()
 export class Book {
