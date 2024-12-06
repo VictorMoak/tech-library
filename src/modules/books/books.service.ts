@@ -1,16 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { Book } from './books.entity';
+
+import { BookRepository } from './books.repository';
 
 @Injectable()
 export class BooksService {
     constructor(
-        @Inject('BOOK_REPOSITORY')
-        private bookRepository: Repository<Book>,
+        private readonly bookRepository: BookRepository,
     ) {}
 
     async findAll() {
-        const books = await this.bookRepository.find();
+        const books = await this.bookRepository.findAll();
 
         return books;
     }
