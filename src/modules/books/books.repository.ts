@@ -14,4 +14,12 @@ export class BookRepository {
   public findAll() {
     return this.repository.find();
   }
+
+  public findId(id: number) {
+    return this.repository.findOne({
+      where: { id },
+      select: ['title', 'year'],
+    });
+  }
+
 }
