@@ -1,11 +1,11 @@
 
 import { Module } from '@nestjs/common';
-import { databaseProviders } from './ormconfig.providers.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BooksService } from '../books/books.service.js';
-import { typeOrmDataSourceConfig } from './config/data-source.js';
+
 import { Book } from '../books/books.entity.js';
+import { BooksService } from '../books/books.service.js';
 import { BookRepository } from '../books/books.repository.js';
+import { typeOrmDataSourceConfig } from './config/data-source.js';
 
 @Module({
   imports: [
