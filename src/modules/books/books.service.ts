@@ -13,13 +13,4 @@ export class BooksService {
 
         return books;
     }
-
-    async findId(id: number) {
-        const book = await this.bookRepository.repository.findOne({
-            where: { id },
-            select: ['title', 'year'],
-        });
-        return book;
-    }
-
 }
