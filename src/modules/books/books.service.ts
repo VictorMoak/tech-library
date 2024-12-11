@@ -1,25 +1,27 @@
-import { Inject, Injectable } from '@nestjs/common';
-
-import { BookRepository } from './books.repository';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Book } from './books.entity';
 
 @Injectable()
 export class BooksService {
-    constructor(
-        private readonly bookRepository: BookRepository,
-    ) {}
+  constructor(
+    @InjectRepository(Book)
+    private booksRepository: Repository<Book>,
+  ) {}
 
-    async findAll() {
-        const books = await this.bookRepository.findAll();
-
-        return books;
+  async updateBook(id: number, updateData: { title: string; year: number }): Promise<string> {
+    const book = await this.booksRepository.findOne({
+      where: { id },
+    });
+    if (!book) {
+      throw new NotFoundException(`Book with ID ${id} not found`);
     }
 
-    async findId(id: number) {
-        const book = await this.bookRepository.repository.findOne({
-            where: { id },
-            select: ['title', 'year'],
-        });
-        return book;
-    }
+    book.title = updateData.title;
+    book.year = updateData.year;
 
+    await this.booksRepository.save(book);
+    return 'Book updated successfully';
+  }
 }
