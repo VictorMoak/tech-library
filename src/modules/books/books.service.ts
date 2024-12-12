@@ -22,4 +22,11 @@ export class BooksService {
         return book;
     }
 
+    async updateById(id: number) {
+        const book = await this.bookRepository.repository.findOne({
+            where: { id },
+        });
+        return book;
+    }
+
 }
