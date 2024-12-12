@@ -5,9 +5,10 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 export const typeOrmDataSourceConfig: DataSourceOptions = {
     type: 'mysql',
     migrationsTableName: 'migrations',
-    host: 'localhost',
+    host: 'localhost', 
     port: 3306,
     username: 'root',
+    password: 'root', 
     database: 'tech_library',
     synchronize: false,
     entities: [join(__dirname, '..', '..', '**/*.entity{.ts,.js}')],
