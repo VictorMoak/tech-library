@@ -9,7 +9,7 @@ export class BookRepository {
     @InjectRepository(Book)
     public readonly repository: Repository<Book>,
   ) {}
-  
+
   public findAll() {
     return this.repository.find();
   }
@@ -20,5 +20,4 @@ export class BookRepository {
       select: ['title', 'year'],
     });
   }
-
 }
