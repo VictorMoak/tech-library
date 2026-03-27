@@ -4,22 +4,17 @@ import { BookRepository } from './books.repository';
 
 @Injectable()
 export class BooksService {
-    constructor(
-        private readonly bookRepository: BookRepository,
-    ) {}
+  constructor(
+    @InjectRepository(Book)
+    private readonly bookRepository: BookRepository,
+  ) {}
 
-    async findAll() {
-        const books = await this.bookRepository.findAll();
-
-        return books;
+  async deleteBook(id: number): Promise<boolean> {
+    const book = await this.bookRepository.findOne({ where: { id } });
+    if (!book) {
+      return false;
     }
-
-    async findId(id: number) {
-        const book = await this.bookRepository.repository.findOne({
-            where: { id },
-            select: ['title', 'year'],
-        });
-        return book;
-    }
-
+    await this.bookRepository.remove(book);
+    return true;
+  }
 }
