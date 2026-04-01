@@ -1,25 +1,20 @@
-import { Inject, Injectable } from '@nestjs/common';
-
+import { Injectable } from '@nestjs/common';
 import { BookRepository } from './books.repository';
+import { Book } from './books.entity'; // Adicione esta linha
 
 @Injectable()
 export class BooksService {
-    constructor(
-        private readonly bookRepository: BookRepository,
-    ) {}
+  constructor(private readonly bookRepository: BookRepository) {}
 
-    async findAll() {
-        const books = await this.bookRepository.findAll();
+  findAll() {
+    return this.bookRepository.findAll();
+  }
 
-        return books;
-    }
+  findId(id: number) {
+    return this.bookRepository.findId(id);
+  }
 
-    async findId(id: number) {
-        const book = await this.bookRepository.repository.findOne({
-            where: { id },
-            select: ['title', 'year'],
-        });
-        return book;
-    }
-
+  createBook(book: Partial<Book>) {
+    return this.bookRepository.repository.save(book);
+  }
 }
